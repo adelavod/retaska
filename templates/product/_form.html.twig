@@ -1,4 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block navbar %}{% endblock %}
+
+{% block body %}
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>Název produktu</td>
+            <td>{{ form_widget(form.name) }}</td>
+        </tr>
+        <tr>
+            <td>Popis </td>
+            <td>{{ form_widget(form.description) }}</td>
+        </tr>
+        <tr>
+            <td>Cena</td>
+            <td>{{ form_widget(form.price) }} Kč</td>
+        </tr>
+        <tr>
+            <td>Kusů na skladě</td>
+            <td>{{ form_widget(form.instock) }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+{% endblock %}
