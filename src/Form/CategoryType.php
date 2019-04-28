@@ -9,20 +9,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProductType extends AbstractType
+class CategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name')
-            ->add('description')
-            ->add('price')
-            ->add('instock')
-            ->add('category', EntityType::class, [
-                'class'=>Category::class,
+            ->add('products', EntityType::class, [
+                'class' => Product::class,
                 'choice_label'=>'name',
                 'multiple'=>true,
                 'expanded'=>true,
+
             ])
         ;
     }
@@ -30,7 +28,7 @@ class ProductType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Product::class,
+            'data_class' => Category::class,
         ]);
     }
 }

@@ -1,0 +1,34 @@
+{% extends 'homepage/index.html.twig' %}
+
+
+{% block title %}Produkt{% endblock %}
+
+{% block body %}
+<h1>Detail produktu {{ product.name }}</h1>
+
+<table class="table">
+    <tbody>
+    <tr>
+        <th>Id</th>
+        <td>{{ product.id }}</td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <td>{{ product.name }}</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>{{ product.description }}</td>
+    </tr>
+    <tr>
+        <th>Price</th>
+        <td>{{ product.price }}</td>
+    </tr>
+    <tr>
+        <th>In Stock</th>
+        <td>{{ product.instock }}</td>
+    </tr>
+    </tbody>
+</table>
+
+{% endblock %}

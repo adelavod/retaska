@@ -18,13 +18,20 @@
             <td>{{ form_widget(form.price) }} Kč</td>
         </tr>
         <tr>
+            <td>Kategorie</td>
+            <td>{{ form_widget(form.category) }}</td>
+        </tr>
+        <tr>
             <td>Kusů na skladě</td>
             <td>{{ form_widget(form.instock) }}</td>
         </tr>
+
         </tbody>
     </table>
 
-
     <button class="btn">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}
+
+
 {% endblock %}

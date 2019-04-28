@@ -22,11 +22,14 @@
             <div class="card" style="width: 18rem;">
                     <img src="..." class="card-img-top" alt="...">
                     <div class="card-body">
-                            <h5 class="card-title">{{ product.name }}</h5>
-                            <p class="card-text"> {{ product.description }}</p>
-                            <p>Cena produktu: {{ product.price }} Kč.</p>
-                            <p>Počet kusů na skladě: {{ product.instock }}</p>
-                            <a href="#" class="btn btn-primary">Detail produktu</a>
+                            <a href="{{ path('catalogue_detail', {('id'):  product.id }) }}
+"                        class="card-title" style="font-size: 1.5rem">{{ product.name }}</a>
+                        <p class="card-text" style="font-size: 12px"> {{ product.description }}</p>
+
+
+                            <p>Cena: {{ product.price }} Kč.</p>
+
+                        <a href="#" class="btn btn-primary">Objednat</a>
                     </div>
             </div>
         {% endfor %}
