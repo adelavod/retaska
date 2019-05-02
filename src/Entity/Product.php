@@ -39,7 +39,7 @@ class Product
     private $instock;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="products")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="product")
      */
     private $category;
 
