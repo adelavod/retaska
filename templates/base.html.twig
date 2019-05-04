@@ -9,11 +9,19 @@
     <body style="background-color: seashell">
 
     {% block navbar %}
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: pink">
-            <a class="navbar-brand" href="#">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: seashell">
+            <a class="navbar-brand" href="{{ path('catalogue') }}">
                 <img src="{{ asset('images/logo2simple.png') }}" width="40" height="40" alt="">
             </a>
-            <a style="font-size: 20px; font-weight: bold">Vítejte, admine!</a>
+            <a style="font-size: 26px; font-weight: bold">Vítejte, admine!</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    {% endblock %}
+    {% block adminbar %}
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: mediumseagreen; height: 30px">
+            <a style="font-size: 20px; font-weight: bold">Co si přejete spravovat?</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -25,17 +33,23 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ path('category_index') }}">Kategorie<span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('catalogue') }}">Katalog</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('shipping_index') }}">Doprava<span class="sr-only">(current)</span></a>
                     </li>
-
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('country_index') }}">Země<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('payment_index') }}">Platba<span class="sr-only">(current)</span></a>
+                    </li>
                 </ul>
             </div>
         </nav>
     {% endblock %}
-
     <div class="container"><br>
-        {% block body %}{% endblock %}
+        {% block body %}
+
+        {% endblock %}
      </div>
 
         {% block javascripts %}{% endblock %}
