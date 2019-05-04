@@ -22,7 +22,6 @@ class Category
      * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="category")
      */
     private $products;
-
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -51,7 +50,6 @@ class Category
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
-            $product->addCategory($this);
         }
         return $this;
     }
@@ -59,7 +57,6 @@ class Category
     {
         if ($this->products->contains($product)) {
             $this->products->removeElement($product);
-            $product->removeCategory($this);
         }
         return $this;
     }

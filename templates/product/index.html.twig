@@ -7,15 +7,15 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Kategorie</th>
-                <th>Price</th>
-                <th>In Stock</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Kategorie</th>
+            <th>Price</th>
+            <th>In Stock</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for product in products %}
@@ -24,13 +24,11 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
                 <td>
-                   {#
-                   {% for category in product.category %}
+                    {% for category in product.category %}
                         {{ category.name }}
                         {% if not loop.last %}<br>
                         {% endif %}
                     {% endfor %}
-                   #}
                 </td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.instock }}</td>

@@ -7,12 +7,12 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Produkty</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Produkty</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for category in category %}
@@ -20,8 +20,8 @@
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
                 <td>
-                    {% for product in category.products %}
-                        {{ product.name }}
+                    {% for category in category.products %}
+                        {{ category.name }}
                         {% if not loop.last %}<br>
                         {% endif %}
                     {% endfor %}
