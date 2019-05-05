@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'publicbase.html.twig' %}
 
 {% block title %}New Objednavka{% endblock %}
 
 {% block body %}
     <h1>Create new Objednavka</h1>
 
-    {{ include('objednavka/_form.html.twig') }}
+    {{ include('objednavka/_form.html.twig', {'button_label': 'Odeslat objednávku'}) }}
 
     <a href="{{ path('objednavka_index') }}">back to list</a>
 {% endblock %}

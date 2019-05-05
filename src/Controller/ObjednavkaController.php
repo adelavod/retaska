@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/objednavka")
+ * @Route("/admin/objednavka")
  */
 class ObjednavkaController extends AbstractController
 {
@@ -25,28 +25,6 @@ class ObjednavkaController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/new", name="objednavka_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $objednavka = new Objednavka();
-        $form = $this->createForm(ObjednavkaType::class, $objednavka);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($objednavka);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('objednavka_index');
-        }
-
-        return $this->render('objednavka/new.html.twig', [
-            'objednavka' => $objednavka,
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
      * @Route("/{id}", name="objednavka_show", methods={"GET"})

@@ -2,7 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Country;
 use App\Entity\Objednavka;
+use App\Entity\Payment;
+use App\Entity\Product;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,9 +24,20 @@ class ObjednavkaType extends AbstractType
             ->add('city')
             ->add('psc')
             ->add('poznamka')
-            ->add('product')
-            ->add('country')
-            ->add('payment')
+
+            ->add('product', EntityType::class, [
+                'class' => Product::class,
+                'choice_label' => 'name'
+            ])
+
+            ->add('country', EntityType::class, [
+                'class' => Country::class,
+                'choice_label' => 'name'
+            ])
+            ->add('payment', EntityType::class, [
+                'class' => Payment::class,
+                'choice_label'=> 'name'
+            ])
         ;
     }
 
