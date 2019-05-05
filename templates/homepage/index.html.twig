@@ -1,13 +1,32 @@
-<html>
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-</head>
-<body>
+{% extends 'publicbase.html.twig' %}
 
-<a>Tady by mělo bejt intro</a>
+{% block title %}Hello HomepageController!{% endblock %}
 
-</body>
-</html>
+
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Hello {{ controller_name }}! ✅</h1>
+
+        This friendly message is coming from:
+        <ul>
+            <li>Your controller at <code><a href="{{ '/var/www/html/retaska/src/Controller/HomepageController.php'|file_link(0) }}">src/Controller/HomepageController.php</a></code></li>
+            <li>Your template at <code><a href="{{ '/var/www/html/retaska/templates/homepage/index.html.twig'|file_link(0) }}">templates/homepage/index.html.twig</a></code></li>
+        </ul>
+    </div>
+{% endblock %}
+{% block footer %}
+    <div class="fixed-bottom"
+         style="height: 35px;
+    background-color: pink;
+    border: 1px;
+    border-color: black">
+        <div class="container"></div>
+        <div class="container" style="text-align: center">Výroba tohoto e-shopu nebyla snadná a dali jsme do ní všechno.</div>
+    </div>
+{% endblock %}
