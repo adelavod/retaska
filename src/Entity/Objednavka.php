@@ -57,6 +57,11 @@ class Objednavka
      * @ORM\Column(type="text", nullable=true)
      */
     private $poznamka;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $totalprice;
     public function getId(): ?int
     {
         return $this->id;
@@ -158,6 +163,18 @@ class Objednavka
     public function setPoznamka(?string $poznamka): self
     {
         $this->poznamka = $poznamka;
+        return $this;
+    }
+
+    public function getTotalprice(): ?float
+    {
+        return $this->totalprice;
+    }
+
+    public function setTotalprice(?float $totalprice): self
+    {
+        $this->totalprice = $totalprice;
+
         return $this;
     }
 }

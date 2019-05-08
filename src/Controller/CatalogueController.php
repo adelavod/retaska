@@ -33,14 +33,16 @@ class CatalogueController extends AbstractController
         ]);
     }
     /**
-     * @Route("/objednat", name="novaobjednavka", methods={"GET","POST"})
+     * @Route("/{id}/objednat", name="novaobjednavka", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Product $product): Response
     {
         $objednavka = new Objednavka();
         $form = $this->createForm(ObjednavkaType::class, $objednavka);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $objednavka->setTotalprice($product->getPrice());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($objednavka);
             $entityManager->flush();
@@ -51,4 +53,6 @@ class CatalogueController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
 }

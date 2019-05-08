@@ -9,14 +9,11 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Email</th>
-                <th>Telephone</th>
-                <th>Name</th>
                 <th>Surname</th>
-                <th>Street</th>
+                <th>Name</th>
                 <th>City</th>
-                <th>Psc</th>
-                <th>Poznamka</th>
+                <th>zboží</th>
+
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,14 +21,13 @@
         {% for objednavka in objednavkas %}
             <tr>
                 <td>{{ objednavka.id }}</td>
-                <td>{{ objednavka.email }}</td>
-                <td>{{ objednavka.telephone }}</td>
-                <td>{{ objednavka.name }}</td>
                 <td>{{ objednavka.surname }}</td>
-                <td>{{ objednavka.street }}</td>
+                <td>{{ objednavka.name }}</td>
                 <td>{{ objednavka.city }}</td>
-                <td>{{ objednavka.psc }}</td>
-                <td>{{ objednavka.poznamka }}</td>
+                <td>
+                    {{ objednavka.product.name }}
+                </td>
+
                 <td>
                     <a href="{{ path('objednavka_show', {'id': objednavka.id}) }}">show</a>
                     <a href="{{ path('objednavka_edit', {'id': objednavka.id}) }}">edit</a>
@@ -45,5 +41,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('novaobjednavka') }}">Create new</a>
+   {# <a href="{{ path('novaobjednavka', {'id': product.id}) }}">Create new</a> #}
 {% endblock %}
