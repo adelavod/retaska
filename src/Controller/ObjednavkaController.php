@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use App\Entity\Objednavka;
 use App\Form\ObjednavkaType;
 use App\Repository\ObjednavkaRepository;
@@ -9,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 /**
  * @Route("/admin/objednavka")
  */
@@ -24,8 +21,6 @@ class ObjednavkaController extends AbstractController
             'objednavkas' => $objednavkaRepository->findAll(),
         ]);
     }
-
-
     /**
      * @Route("/{id}", name="objednavka_show", methods={"GET"})
      */
@@ -35,7 +30,6 @@ class ObjednavkaController extends AbstractController
             'objednavka' => $objednavka,
         ]);
     }
-
     /**
      * @Route("/{id}/edit", name="objednavka_edit", methods={"GET","POST"})
      */
@@ -43,21 +37,17 @@ class ObjednavkaController extends AbstractController
     {
         $form = $this->createForm(ObjednavkaType::class, $objednavka);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('objednavka_index', [
                 'id' => $objednavka->getId(),
             ]);
         }
-
         return $this->render('objednavka/edit.html.twig', [
             'objednavka' => $objednavka,
             'form' => $form->createView(),
         ]);
     }
-
     /**
      * @Route("/{id}", name="objednavka_delete", methods={"DELETE"})
      */
@@ -68,7 +58,6 @@ class ObjednavkaController extends AbstractController
             $entityManager->remove($objednavka);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('objednavka_index');
     }
 }

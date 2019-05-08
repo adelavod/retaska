@@ -29,7 +29,6 @@ class Product
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-
     private $instock;
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="products")
