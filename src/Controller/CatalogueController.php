@@ -1,9 +1,11 @@
 <?php
 namespace App\Controller;
 use App\Entity\Objednavka;
+use App\Entity\Payment;
 use App\Entity\Product;
 use App\Form\ObjednavkaType;
 use App\Form\ProductType;
+use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,13 +37,15 @@ class CatalogueController extends AbstractController
     /**
      * @Route("/{id}/objednat", name="novaobjednavka", methods={"GET","POST"})
      */
-    public function new(Request $request, Product $product): Response
+    public function new(Request $request, Product $product, PaymentRepository $paymentRepository): Response
     {
         $objednavka = new Objednavka();
         $form = $this->createForm(ObjednavkaType::class, $objednavka);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $objednavka->setProduct($product);
+
             $objednavka->setTotalprice($product->getPrice());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($objednavka);
@@ -51,6 +55,9 @@ class CatalogueController extends AbstractController
         return $this->render('objednavka/new.html.twig', [
             'objednavka' => $objednavka,
             'form' => $form->createView(),
+            'product' => $product,
+            'payment' => $paymentRepository->findAll(),
+
         ]);
     }
 

@@ -25,10 +25,11 @@ class ObjednavkaType extends AbstractType
             ->add('psc')
             ->add('poznamka')
 
-            ->add('product', EntityType::class, [
+           /* ->add('product', EntityType::class, [
                 'class' => Product::class,
                 'choice_label' => 'name'
             ])
+        */
 
             ->add('country', EntityType::class, [
                 'class' => Country::class,

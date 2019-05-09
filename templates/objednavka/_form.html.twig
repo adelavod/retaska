@@ -4,15 +4,16 @@
 {% block body %}
 
 {{ form_start(form) }}
-<div class="container col-md-8" style="margin-top: 3% ">
-    <h2>Vytvořit novou objednávku</h2>
+    <div class="row">
+<div class="container col-md-6" style="margin-top: 3% ">
+    <h2>Vytvořit novou objednávku na {{ product.name }}</h2>
     <table class="table">
         <tbody>
-        <tr>
-            <td>Co si přejete objednat?</td>
+
+        {#<tr><td>Co si přejete objednat?</td>
             <td>{{ form_widget(form.product) }}<br>
                 {{ form_errors(form.product) }}</td>
-        </tr>
+        </tr>#}
 
     <tr>
         <td>Jméno</td>
@@ -70,8 +71,23 @@
     </tbody>
 </table>
 
+    Celková cena: {{ product.price }}
+
     {{ form_widget(form) }}
     <button class="btn btn-success">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
 </div>
+        <div class="container col-md-4" style="background-color: #f1f2f3; padding: 5%">
+
+            <p style="text-align: center">Rekapitulace Vaší objednávky:</p>
+
+            <p>Cena produktu: {{ product.price }},- Kč</p>
+            
+        </div>
+    </div>
 {% endblock %}
+     {% block javascripts %}
+     <script>
+         $('#celkovaCena').text({{ product.price }});
+     </script>
+     {% endblock %}
