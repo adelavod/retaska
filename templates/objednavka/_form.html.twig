@@ -65,12 +65,14 @@
         <tr>
             <td><h5>Forma platby:</h5></td>
             <td>{{ form_widget(form.payment) }}<br>
-                {{ form_errors(form.payment) }}</td>
+                {{ form_errors(form.payment) }}
+            Cena: <span id="cenazaplatbu">0</span>,- Kč</td>
         </tr>
         <tr>
             <td><h5>Forma dopravy:</h5></td>
             <td>{{ form_widget(form.shipping) }}<br>
-                {{ form_errors(form.shipping) }}</td>
+                {{ form_errors(form.shipping) }}
+            Cena: <span id="cenazadopravu">69</span>,- Kč</td></td>
         </tr>
         <tr>
             <td><h5>Chcete nám sdělit ještě něco?</h5></td>
@@ -89,14 +91,10 @@
 </div>
         <div class="container col-md-4" style="background-color: #f1f2f3; padding: 5%">
 
-            <p style="text-align: center">Rekapitulace Vaší objednávky:</p>
+            <p style="text-align: center">Celková cena Vaší objednávky:</p>
 
-            <p>Cena produktu: {{ product.price }},- Kč</p>
-           <p> Počet: {{ objednavka.count }}</p>
+            <div id="nakupcelkem">{{ product.price }}</div>
 
-            <span id="cenaproduktu">{{ product.price }}</span>
-<button onclick="tellPrice()" id="button44">HIYA</button>
-            <div id="kojot"></div>
         </div>
     </div>
 {% endblock %}
@@ -117,10 +115,53 @@ let prislusenstvi = payment + shipping;
 
 let totalprice = zaprodukty + prislusenstvi;
 
-console.log(totalprice);
+{#console.log(totalprice)#}
 
+{#
+$('#objednavka_payment').on('change', function(e) {
+    e.preventDefault();
+    let payment = parseInt($('#objednavka_payment option:selected').attr('data-payment'));
+    console.log(payment)}
+);
+
+$('#objednavka_shipping').on('change', function(e) {
+    e.preventDefault();
+    let shipping = parseInt($('#objednavka_shipping option:selected').attr('data-shipping'));
+    console.log(shipping)}
+);
+
+#}
+
+
+$('#objednavka_payment').on('change', function(e) {
+    e.preventDefault();
+    let productPrice = {{ product.price }};
+    let productCount = $('#objednavka_count').val();
+    let zaprodukty = productPrice * productCount;
+    let payment = parseInt($('#objednavka_payment option:selected').attr('data-payment'));
+    let shipping = parseInt($('#objednavka_shipping option:selected').attr('data-shipping'));
+    let paymentandshipping = payment + shipping;
+    let totalprice = zaprodukty + paymentandshipping;
+    $('#cenazaplatbu').text(payment);
+    $('#nakupcelkem').text(totalprice)
+});
+
+$('#objednavka_shipping').on('change', function(e) {
+    e.preventDefault();
+    let productPrice = {{ product.price }};
+    let productCount = $('#objednavka_count').val();
+    let zaprodukty = productPrice * productCount;
+    let payment = parseInt($('#objednavka_payment option:selected').attr('data-payment'));
+    let shipping = parseInt($('#objednavka_shipping option:selected').attr('data-shipping'));
+    let paymentandshipping = payment + shipping;
+    let totalprice = zaprodukty + paymentandshipping;
+    $('#cenazadopravu').text(shipping);
+    $('#nakupcelkem').text(totalprice)
+});
 
          {#
+
+})
    #}
 
 {#
