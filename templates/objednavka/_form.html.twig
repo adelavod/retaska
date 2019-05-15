@@ -91,10 +91,10 @@
 </div>
         <div class="container col-md-4" style="background-color: #f1f2f3; padding: 5%">
 
-            <p style="text-align: center">Celková cena Vaší objednávky:</p>
+            <p style="text-align: center">Rekapitulace Vaší objednávky:</p>
 
+            <br>Celková cena:
             <div id="nakupcelkem">{{ product.price }}</div>
-
         </div>
     </div>
 {% endblock %}
@@ -143,7 +143,8 @@ $('#objednavka_payment').on('change', function(e) {
     let paymentandshipping = payment + shipping;
     let totalprice = zaprodukty + paymentandshipping;
     $('#cenazaplatbu').text(payment);
-    $('#nakupcelkem').text(totalprice)
+    $('#nakupcelkem').text(totalprice);
+    $('#zaprodukty').text(zaprodukty)
 });
 
 $('#objednavka_shipping').on('change', function(e) {
@@ -156,7 +157,22 @@ $('#objednavka_shipping').on('change', function(e) {
     let paymentandshipping = payment + shipping;
     let totalprice = zaprodukty + paymentandshipping;
     $('#cenazadopravu').text(shipping);
-    $('#nakupcelkem').text(totalprice)
+    $('#nakupcelkem').text(totalprice);
+    $('#zaprodukty').text(zaprodukty)
+});
+
+$('#objednavka_count').on('change', function(e) {
+    e.preventDefault();
+    let productPrice = {{ product.price }};
+    let productCount = $('#objednavka_count').val();
+    let zaprodukty = productPrice * productCount;
+    let payment = parseInt($('#objednavka_payment option:selected').attr('data-payment'));
+    let shipping = parseInt($('#objednavka_shipping option:selected').attr('data-shipping'));
+    let paymentandshipping = payment + shipping;
+    let totalprice = zaprodukty + paymentandshipping;
+    $('#cenazadopravu').text(shipping);
+    $('#nakupcelkem').text(totalprice);
+    $('#zaprodukty').text(zaprodukty)
 });
 
          {#

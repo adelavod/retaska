@@ -4,31 +4,35 @@
 {% block title %}Produkt{% endblock %}
 
 {% block body %}
-<h1>Detail produktu {{ product.name }}</h1>
+    <div class="container" style="padding: 5%">
 
-<table class="table">
-    <tbody>
-    <tr>
-        <th>Id</th>
-        <td>{{ product.id }}</td>
-    </tr>
-    <tr>
-        <th>Name</th>
-        <td>{{ product.name }}</td>
-    </tr>
-    <tr>
-        <th>Description</th>
-        <td>{{ product.description }}</td>
-    </tr>
-    <tr>
-        <th>Price</th>
-        <td>{{ product.price }}</td>
-    </tr>
-    <tr>
-        <th>In Stock</th>
-        <td>{{ product.instock }}</td>
-    </tr>
-    </tbody>
-</table>
+        <h1>Produkt {{ product.name }}</h1>
+
+        <table class="table">
+            <tbody>
+
+            <tr>
+                <th>Název produktu:</th>
+                <td>{{ product.name }}</td>
+            </tr>
+            <tr>
+                <th>Popis:</th>
+                <td>{{ product.description }}</td>
+            </tr>
+            <tr>
+                <th>Cena:</th>
+                <td>{{ product.price }},- Kč</td>
+            </tr>
+            <tr>
+                <th>Na skladě</th>
+                <td>{{ product.instock }} kusů</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('novaobjednavka', {'id': product.id}) }}" class="btn btn-primary">Koupit produkt</a>
+
+    </div>
+
 
 {% endblock %}
