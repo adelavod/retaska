@@ -1,23 +1,35 @@
 {% extends 'publicbase.html.twig' %}
 
-{% block title %}Hello HomepageController!{% endblock %}
+{% block title %}Tašky vstřícné k přírodě{% endblock %}
 
 
 
 {% block body %}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fixed.css') }}">
     <style>
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     </style>
 
- <div class="row" style="height: 500px; background-image:url('{{ asset('images/forest.jpg') }}')">
-     <h1>Hello there!</h1>
-     
+ <div class="landing">
+     <div class="home-wrap">
+     <div class="home-inner" style="height: 600px;
+             background-image:url('{{ asset('images/wave.jpg') }}');
+             background-size: cover">
+     </div>
+     </div>
  </div>
+    <div class="caption" style="width: 100%; max-width: 100%;
+position: absolute; top: 38%; z-index: 1; color: black;
+text-align: left; padding-left: 5%">
+        <h1>Záleží nám na oceánech.</h1>
+        <h3>Vyrábíme eco-friendly tašky.</h3>
+    </div>
     
 {% endblock %}
 {% block footer %}
-    <div class="fixed-bottom"
+    <div class="bottom"
          style="height: 35px;
     background-color: pink;
     border: 1px;

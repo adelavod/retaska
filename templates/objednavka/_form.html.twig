@@ -14,7 +14,11 @@
             <td>{{ form_widget(form.product) }}<br>
                 {{ form_errors(form.product) }}</td>
         </tr>#}
-
+        <tr>
+            <td>Počet kusů</td>
+            <td> {{ form_widget(form.count) }}<br>
+                {{ form_errors(form.count) }}</td>
+        </tr>
     <tr>
         <td>Jméno</td>
         <td> {{ form_widget(form.name) }}<br>
@@ -64,6 +68,11 @@
                 {{ form_errors(form.payment) }}</td>
         </tr>
         <tr>
+            <td><h5>Forma dopravy:</h5></td>
+            <td>{{ form_widget(form.shipping) }}<br>
+                {{ form_errors(form.shipping) }}</td>
+        </tr>
+        <tr>
             <td><h5>Chcete nám sdělit ještě něco?</h5></td>
             <td>{{ form_widget(form.poznamka) }}<br>
                 {{ form_errors(form.poznamka) }}</td>
@@ -71,7 +80,8 @@
     </tbody>
 </table>
 
-    Celková cena: {{ product.price }}
+
+
 
     {{ form_widget(form) }}
     <button class="btn btn-success">{{ button_label|default('Save') }}</button>
@@ -82,12 +92,44 @@
             <p style="text-align: center">Rekapitulace Vaší objednávky:</p>
 
             <p>Cena produktu: {{ product.price }},- Kč</p>
-            
+           <p> Počet: {{ objednavka.count }}</p>
+
+            <span id="cenaproduktu">{{ product.price }}</span>
+<button onclick="tellPrice()" id="button44">HIYA</button>
+            <div id="kojot"></div>
         </div>
     </div>
 {% endblock %}
+
      {% block javascripts %}
      <script>
-         $('#celkovaCena').text({{ product.price }});
+let productPrice = {{ product.price }};
+
+let productCount = $('#objednavka_count').val();
+
+let zaprodukty = productPrice * productCount;
+
+let payment = parseInt($('#objednavka_payment option:selected').attr('data-payment'));
+
+let shipping = parseInt($('#objednavka_shipping option:selected').attr('data-shipping'));
+
+let prislusenstvi = payment + shipping;
+
+let totalprice = zaprodukty + prislusenstvi;
+
+console.log(totalprice);
+
+
+         {#
+   #}
+
+{#
+
+
+let product = {{ product.price }};
+
+
+console.log(zaprodukty);
+#}
      </script>
      {% endblock %}

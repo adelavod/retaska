@@ -46,7 +46,7 @@ class CatalogueController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $objednavka->setProduct($product);
 
-            $objednavka->setTotalprice($product->getPrice());
+            $objednavka->setTotalprice($product->getPrice() + $objednavka->getPayment()->getPrice());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($objednavka);
             $entityManager->flush();
@@ -57,7 +57,7 @@ class CatalogueController extends AbstractController
             'form' => $form->createView(),
             'product' => $product,
             'payment' => $paymentRepository->findAll(),
-
+            'cenazaprodukt' => $product->getPrice(),
         ]);
     }
 

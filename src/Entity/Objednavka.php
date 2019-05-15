@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ObjednavkaRepository")
  */
@@ -59,9 +60,21 @@ class Objednavka
     private $poznamka;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Shipping")
+     */
+    private $shipping;
+
+    /**
      * @ORM\Column(type="float", nullable=true)
      */
     private $totalprice;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $count;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -174,6 +187,30 @@ class Objednavka
     public function setTotalprice(?float $totalprice): self
     {
         $this->totalprice = $totalprice;
+
+        return $this;
+    }
+
+    public function getShipping(): ?Shipping
+    {
+        return $this->shipping;
+    }
+
+    public function setShipping(?Shipping $shipping): self
+    {
+        $this->shipping = $shipping;
+
+        return $this;
+    }
+
+    public function getCount(): ?int
+    {
+        return $this->count;
+    }
+
+    public function setCount(?int $count): self
+    {
+        $this->count = $count;
 
         return $this;
     }
