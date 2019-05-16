@@ -37,6 +37,7 @@
                             <p>Cena: {{ product.price }} Kč.</p>
 
                         <a href="{{ path('novaobjednavka', {'id': product.id}) }}" class="btn btn-primary">Koupit</a>
+                        <a href="{{ path('kosik_add', {'id': product.id}) }}" class="btn btn-secondary">Do košíku</a>
                     </div>
             </div>
         {% endfor %}
