@@ -9,32 +9,173 @@
     <link rel="stylesheet" href="{{ asset('css/fixed.css') }}">
     <style>
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        .example-wrapper code { background: #F2EED8; padding: 2px 6px; }
     </style>
 
- <div class="landing">
-     <div class="home-wrap">
-     <div class="home-inner" style="height: 600px;
-             background-image:url('{{ asset('images/wave.jpg') }}');
-             background-size: cover">
+{# LANDING PAGE: 100% HEIGHT#}
+
+ <div class="landing" style=" position: relative;
+  width: 100%;
+  height: 100vh;
+  display: table;
+  z-index: -1;">
+
+     <div class="home-wrap" style="
+  clip: rect(0, auto, auto, 0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;">
+
+<div class="home-inner" style="
+        position: fixed;
+        display: table;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center center;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        will-change: transform;
+        background-image:url('{{ asset('images/green.jpeg') }}');
+         ">
      </div>
      </div>
  </div>
-    <div class="caption" style="width: 100%; max-width: 100%;
-position: absolute; top: 38%; z-index: 1; color: black;
+    <div class="caption" style="
+    width: 100%;
+    max-width: 100%;
+    background-color: rgba(0, 0, 0, 0.4)!important;
+position: absolute; top: 38%; z-index: 1; color: floralwhite;
 text-align: left; padding-left: 5%">
-        <h1>Záleží nám na oceánech.</h1>
-        <h3>Vyrábíme eco-friendly tašky.</h3>
+        <h1 style="font-size: 3rem; text-shadow: 2px 2px 2px black">Záleží nám na přírodě.</h1>
+        <h4 style="text-shadow: 1px 1px 1px black">Vyrábíme eco-friendly tašky.</h4>
+        </div>
+
+ {# END OF LANDING #}
+
+ {# WISHLIST #}
+    <div class="jumbotron-fluid" style="background-color: #F2EED8">
+        <div class="col-12 text-center narrow">
+            <h1 style="margin: 20px">Wishlist</h1>
+            <div class="heading-underline" style="margin: auto;
+            width: 4rem;
+            height: .2rem;
+            background-color: darkgreen"></div>
+        </div>
+
+        <div class="container col-md-12" style="align-self: center; padding: 0">
+            <div class="row" style="background-color: #F2EED8">
+
+                    {%  for product in products %}
+                        <div class="container col-md-4" style="margin-bottom: 20px">
+                            <div class="card" style="margin: 5%">
+                                <img src="..." class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <a href="{{ path('catalogue_detail', {('id'):  product.id }) }}
+"                        class="card-title" style="font-size: 1.5rem; color: darkgreen">{{ product.name }}</a>
+
+                                    <br>{% for category in product.category %}
+                                    <h7>Kategorie: {{ category.name }}</h7>
+
+                                <br>
+                                    {% endfor  %}
+
+                                    <p class="card-text" style="font-size: 12px"> {{ product.description }}</p>
+
+
+                                    <p>Cena: {{ product.price }} Kč.</p>
+
+                                    <a href="{{ path('novaobjednavka', {'id': product.id}) }}" class="btn btn-primary" style="background-color: #73A605; border-color: black">Koupit</a>
+                                    <a href="{{ path('kosik_add', {'id': product.id}) }}" class="btn btn-secondary" style="border-color: black">Do košíku</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+            </div>
+        </div>
     </div>
+    {# END OF WISHLIST #}
+
+    {# ABOUT #}
+    <div class="landing" style=" position: relative;
+  width: 100%;
+  height: 100vh;
+  display: table;
+  z-index: -1;">
+
+        <div class="home-wrap" style="
+  clip: rect(0, auto, auto, 0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;">
+
+            <div class="home-inner" style="
+                    position: fixed;
+                    display: table;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-size: cover;
+                    background-position: center right;
+                    -webkit-transform: translateZ(0);
+                    transform: translateZ(0);
+                    will-change: transform;
+                    background-image:url('{{ asset('images/forest.jpg') }}');
+                    ">
+            </div>
+        </div>
+
+        <div class="row" style="
+    width: 100%;
+    max-width: 100%;
+
+position: absolute; top: 18%; z-index: 1; color: floralwhite;
+text-align: left; padding: 5%">
+            <div class="container col-md-8"
+                 style="background-color: rgba(0, 0, 0, 0.4)!important;">
+                <h2>Náš příběh</h2>
+                <p style="text-align: justify">
+                    Jednorázové plastové výrobky patří mezi největší znečišťovatele životního prostředí na světě. Výrazný podíl na tom mají nákupní tašky a sáčky, které je přitom snadné vyrábět také z recyklovatelných materiálů. Přestože se již v řadě obchodů začaly objevovat papírové tašky, stále zůstává drtivá většina z nákupních tašek a sáčků dostupných v místech prodeje plastová.
+                </p>
+                <p style="text-align: justify">
+                    Oliver Zelený, zakladatel projektu Eshop Re-Taška, se rozhodl nepodlehnout plastovému diktátu supermarketů a nechal si pro svou vlastní potřebu vyrobit několik variant sáčků a tašek z papíru a tkanin. O tyto výrobky brzy projevili zájem také lidé z jeho okolí. Oliver se svým týmem pracuje každý den na tom, aby se podíl plastových tašek na trhu snížil na minimum.
+                </p>
+                <p style="text-align: justify">
+                    A proto se kvalitní plátěné tašky mohou snadno dostat i k Vám domů. Jsou z kvalitního materiálu a vydrží mnoho let.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    {# END OF ABOUT #}
+
+
     
 {% endblock %}
 {% block footer %}
-    <div class="bottom"
-         style="height: 35px;
-    background-color: pink;
-    border: 1px;
-    border-color: black">
-        <div class="container"></div>
-        <div class="container" style="text-align: center">Výroba tohoto e-shopu nebyla snadná a dali jsme do ní všechno.</div>
-    </div>
+    <nav class="navbar navbar-expand-md navbar-light"
+         style="background-color: #73A605; height: 50px">
+        <a class="navbar-brand" href="{{ path('homepage') }}">
+            <img src="{{ asset('images/logo2simple.png') }}" width="40" height="40" alt="">
+        </a>
+
+        <a class="navbar-brand" href="#">REtaška</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            </ul>
+           <a style="font-weight: bold">&copy; Adéla Vod, 2019</a>
+
+        </div>
+    </nav>
 {% endblock %}

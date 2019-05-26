@@ -27,6 +27,7 @@ class CatalogueController extends AbstractController
             'products' => $productRepository->findAll(),
         ]);
     }
+
     /**
      * @Route("/thankyou", name="thankyou", methods={"GET"})
      */
