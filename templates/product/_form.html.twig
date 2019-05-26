@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block navbar %}{% endblock %}
-
+{% block adminbar %}{% endblock %}
 {% block body %}
 {{ form_start(form) }}
     <table class="table">
@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td>Kategorie</td>
-            <td>{{ form_widget(form.category) }}</td>
+            <td>{{  form_widget(form.category) }}</td>
         </tr>
         <tr>
             <td>Kusů na skladě</td>
