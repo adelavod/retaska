@@ -50,6 +50,13 @@ class KosikController extends AbstractController
         $kosik = $session->get('kosik', []);
 
         $kosik[$product->getId()] ['amount']--;
+
+        // pokud je po uprave pocet 0, odebere se cely produkt:
+
+        if ($kosik[$product->getId()]['amount'] === 0)
+        {
+            unset($kosik[$product->getId()]);
+        }
         $session->set('kosik', $kosik);
 
         return $this->redirectToRoute('kosik');
