@@ -1,10 +1,12 @@
 <?php
 namespace App\Controller;
+use App\Entity\Category;
 use App\Entity\Objednavka;
 use App\Entity\Payment;
 use App\Entity\Product;
 use App\Form\ObjednavkaType;
 use App\Form\ProductType;
+use App\Repository\CategoryRepository;
 use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,6 +29,19 @@ class CatalogueController extends AbstractController
             'products' => $productRepository->findAll(),
         ]);
     }
+
+    /**
+     * @Route("/vypiskategorii/{id}", name="list_id")
+     */
+    public function listCategory(ProductRepository $productRepository, CategoryRepository $categoryRepository, $id)
+    {
+        return $this->render('catalogue/index.html.twig', [
+            'products' => $productRepository->vypisKategorii($id),
+            'categories' => $categoryRepository->findAll()
+
+        ]);
+    }
+
 
     /**
      * @Route("/thankyou", name="thankyou", methods={"GET"})

@@ -33,6 +33,10 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
 
+    public function vypisKategorii($vypisKategorii)
+    {
+        return $this->findBy(['category'=>$vypisKategorii]);
+    }
 
     /*
     public function findOneBySomeField($value): ?Product
