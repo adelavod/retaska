@@ -7,15 +7,17 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 12px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
-{# LOOP PO TRECH
-{%  for product in products %}
-{%  if (loop. index % 3) == 0 %}
- </div><div class="">
- {% endif%}
- {% endfor %}
- #}
+
         <div class="row">
-<div class="container" style="width: 20%; justify-content: left; background-color: #f1f2f3">Hello <3</div>
+            {# LEVÉ MENU #}
+<div class="container" style="justify-content: center; width: 20%; background-color: #f1f2f3;">
+  <br><h5>Kategorie produktů:</h5>
+    {% for category in categories %}
+        <a href="{{ path('list_id', {('id'): category.id }) }}" class="btn btn-primary" style="color: white; width: 95%; margin: 5px">{{ category.name }}</a><br>
+            {% endfor %}
+        </div>
+
+            {# VÝPIS PRODUKTŮ #}
 <div class="container" style="width: 78%; justify-content: right;"><br>
  <div class="row">
     {%  for product in products %}

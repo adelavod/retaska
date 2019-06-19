@@ -31,13 +31,10 @@ class Product
      */
     private $instock;
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="products")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
      */
     private $category;
-    public function __construct()
-    {
-        $this->category = new ArrayCollection();
-    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,27 +75,13 @@ class Product
         $this->instock = $instock;
         return $this;
     }
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategory(): Collection
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
-    public function addCategory(Category $category): self
+    public function setCategory(?Category $category): self
     {
-        if (!$this->category->contains($category)) {
-            $this->category[] = $category;
-            $category->addProduct($this);
-        }
-        return $this;
-    }
-    public function removeCategory(Category $category): self
-    {
-        if ($this->category->contains($category)) {
-            $this->category->removeElement($category);
-            $category->removeProduct($this);
-        }
+        $this->category = $category;
         return $this;
     }
 }

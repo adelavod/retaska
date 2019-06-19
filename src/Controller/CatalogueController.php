@@ -23,15 +23,16 @@ class CatalogueController extends AbstractController
     /**
      * @Route("/", name="catalogue", methods={"GET"})
      */
-    public function catalogue(ProductRepository $productRepository): Response
+    public function catalogue(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
         return $this->render('catalogue/index.html.twig', [
             'products' => $productRepository->findAll(),
+            'categories' => $categoryRepository->findAll()
         ]);
     }
 
     /**
-     * @Route("/vypiskategorii/{id}", name="list_id")
+     * @Route("/vypiskategorii/{id}", name="list_id", methods="GET")
      */
     public function listCategory(ProductRepository $productRepository, CategoryRepository $categoryRepository, $id)
     {

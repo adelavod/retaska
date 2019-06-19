@@ -23,13 +23,7 @@
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
-                <td>
-                    {% for category in product.category %}
-                        {{ category.name }}
-                        {% if not loop.last %}<br>
-                        {% endif %}
-                    {% endfor %}
-                </td>
+                <td>{{ product.category.name }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.instock }}</td>
                 <td>
