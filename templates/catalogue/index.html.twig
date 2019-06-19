@@ -27,11 +27,7 @@
                             <a href="{{ path('catalogue_detail', {('id'):  product.id }) }}
 "                        class="card-title" style="font-size: 1.5rem">{{ product.name }}</a>
 
-                        <br>{% for category in product.category %}
-                        <h7>Kategorie: {{ category.name }}</h7>
-
-                            <br>
-                        {% endfor  %}
+                        <br>{{ product.category.name }}
 
                         <p class="card-text" style="font-size: 12px"> {{ product.description }}</p>
 
@@ -47,4 +43,21 @@
  </div>
 </div>
         </div>
+    <nav class="navbar navbar-expand-md navbar-light"
+         style="background-color: #73A605; height: 50px">
+        <a class="navbar-brand" href="{{ path('homepage') }}">
+            <img src="{{ asset('images/logo2simple.png') }}" width="40" height="40" alt="">
+        </a>
+
+        <a class="navbar-brand" href="#">REtaška</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            </ul>
+            <a style="font-weight: bold">&copy; Adéla Vod, 2019</a>
+
+        </div>
+    </nav>
 {% endblock %}

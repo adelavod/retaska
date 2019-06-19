@@ -31,16 +31,27 @@
                 <td>{{ item.price }}</td>
                 <td>{{ item.amount }}</td>
                 <td>
-                    <a href="{{ path('kosik_amountplus', {'id': item.id})}}" class="btn btn-success btn-sm"> + </a>
-                    <a href="{{ path('kosik_amountminus', {'id': item.id}) }}" class="btn btn-danger btn-sm"> - </a>
+                    <a href="{{ path('kosik_amountplus', {'id': item.id})}}" class="btn btn-light btn-sm" style="background-color: #73A605; color: floralwhite"> + </a>
+                    <a href="{{ path('kosik_amountminus', {'id': item.id}) }}" class="btn btn-danger btn-sm" style="background-color: tomato"> - </a>
                 </td>
-                <td><span id="cena">...</span></td>
+                <td>{% set celkem = item.price * item.amount %}{{ celkem }}</td>
             </tr>
         {% endfor %}
         </tbody>
 
     </table>
+<div class="row">
+    <div class="col-md-4">
+        <a href="#" class="btn btn-light my-2 my-sm-0" style="background-color: #73A605; color: floralwhite; width: 12em; margin: 5px">Pokračovat v nákupu</a><br>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <a href="#" class="btn btn-light my-2 my-sm-0" style="background-color: #73A605; color: floralwhite; width: 10em; margin: 5px;
+">Přejít k platbě</a><br>
+
+    </div>
 </div>
+   </div>
 
 
 
