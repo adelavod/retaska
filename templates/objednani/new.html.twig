@@ -1,0 +1,12 @@
+{% extends 'publicbase.html.twig' %}
+
+{% block title %}Nová objednávka{% endblock %}
+
+{% block body %}
+
+    {{ include('objednani/_form.html.twig') }}
+
+    <a href="{{ path('objednani_index') }}">back to list</a>
+
+{% endblock %}
+

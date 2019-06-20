@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Objednani{% endblock %}
+
+{% block body %}
+    <h1>Edit Objednani</h1>
+
+    {{ include('objednani/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('objednani_index') }}">back to list</a>
+
+    {{ include('objednani/_delete_form.html.twig') }}
+{% endblock %}

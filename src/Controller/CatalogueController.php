@@ -59,6 +59,7 @@ class CatalogueController extends AbstractController
     public function new(Request $request, Product $product, PaymentRepository $paymentRepository, SessionInterface $session): Response
     {
         $objednavka = new Objednavka();
+
         $form = $this->createForm(ObjednavkaType::class, $objednavka);
         $form->handleRequest($request);
 

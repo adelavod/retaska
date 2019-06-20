@@ -3,25 +3,39 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
 
 class KosikController extends AbstractController
 {
+    /**
+     * @Route("/kosik", name="kosik")
+     */
+    public function index(SessionInterface $session)
+    {
+        $kosik = $session->get('kosik', []);
+
+        return $this->render('kosik/index.html.twig', [
+            'kosik'=> $kosik
+        ]);
+    }
 
     /**
      * @Route("/basket-add/{id}", name="kosik_add")
      */
-    public function add(Product $product, SessionInterface $session)
+    public function add(Product $product, SessionInterface $session, Request $request)
     {
+        $amount = $request->query->get('amount');
+
         $kosik = $session->get('kosik', []);
 
         $kosik[$product->getId()] = [
             'id'=> $product->getId(),
             'name'=>$product->getName(),
             'price'=> $product->getPrice(),
-            'amount'=>1
+            'amount'=>$amount
         ];
 
         $session->set('kosik', $kosik);
@@ -84,15 +98,5 @@ class KosikController extends AbstractController
      */
 
 
-    /**
-     * @Route("/kosik", name="kosik")
-     */
-    public function index(SessionInterface $session)
-    {
-        $kosik = $session->get('kosik', []);
 
-        return $this->render('kosik/index.html.twig', [
-'kosik'=> $kosik
-        ]);
-    }
 }

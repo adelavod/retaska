@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Objednávky{% endblock %}
+
+{% block body %}
+    <h1>Objednávky</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Surname</th>
+
+                <th>City</th>
+
+                <th>TotalPrice</th>
+                <th>Products</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for objednani in objednanis %}
+            <tr>
+                <td>{{ objednani.id }}</td>
+                <td>{{ objednani.name }}</td>
+                <td>{{ objednani.surname }}</td>
+
+                <td>{{ objednani.city }}</td>
+
+                <td>{{ objednani.stavObjednavky }}</td>
+                <td>{{ objednani.totalPrice }}</td>
+                {% for item in kosik %}
+                <td>{{ item.name }}<br>
+                </td>
+                {% endfor %}
+                <td>
+                    <a href="{{ path('objednani_show', {'id': objednani.id}) }}">show</a>
+                    <a href="{{ path('objednani_edit', {'id': objednani.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('objednani_new') }}">Create new</a>
+{% endblock %}
