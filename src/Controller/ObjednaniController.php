@@ -39,6 +39,8 @@ class ObjednaniController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $objednani->setProducts($objednaneProdukty);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($objednani);
             

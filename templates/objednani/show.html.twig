@@ -53,7 +53,11 @@
             </tr>
             <tr>
                 <th>Products</th>
-                <td>{{ objednani.products ? objednani.products|join(', ') : '' }}</td>
+                <td>{% for item in objednani.products %}
+                        {{ item.name }}, {{ item.amount }} ks<br>
+
+
+                    {% endfor %}</td>
             </tr>
         </tbody>
     </table>
