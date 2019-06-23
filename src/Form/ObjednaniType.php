@@ -35,8 +35,8 @@ class ObjednaniType extends AbstractType
                 'choice_label' => 'name',
                 'choice_attr' => function (Payment $payment) {
                     return ['data-payment' => $payment->getPrice()];
-                }
-            ])
+                }])
+
             ->add('shipping', EntityType::class, [
                 'class' => Shipping::class,
                 'choice_label' => 'name',

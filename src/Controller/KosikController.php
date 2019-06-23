@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -27,7 +28,7 @@ class KosikController extends AbstractController
      */
     public function add(Product $product, SessionInterface $session, Request $request)
     {
-        $amount = $request->query->get('amount');
+        $amount = 1;
 
         $kosik = $session->get('kosik', []);
 
@@ -35,10 +36,11 @@ class KosikController extends AbstractController
             'id'=> $product->getId(),
             'name'=>$product->getName(),
             'price'=> $product->getPrice(),
-            'amount'=>$amount
+            'amount'=>$amount,
         ];
 
         $session->set('kosik', $kosik);
+
 
         return $this->redirectToRoute('kosik');
     }
@@ -51,6 +53,7 @@ class KosikController extends AbstractController
         $kosik = $session->get('kosik', []);
 
         $kosik[$product->getId()] ['amount']++;
+
         $session->set('kosik', $kosik);
 
         return $this->redirectToRoute('kosik');
@@ -63,13 +66,13 @@ class KosikController extends AbstractController
     {
         $kosik = $session->get('kosik', []);
 
-        $kosik[$product->getId()] ['amount']--;
-
         // pokud je po uprave pocet 0, odebere se cely produkt:
 
-        if ($kosik[$product->getId()]['amount'] === 0)
+        if ($kosik[$product->getId()]['amount'] == 1)
         {
             unset($kosik[$product->getId()]);
+        } else {
+            $kosik[$product->getId()] ['amount']--;
         }
         $session->set('kosik', $kosik);
 
@@ -97,6 +100,16 @@ class KosikController extends AbstractController
      *
      */
 
+    /**
+     * @Route("/basket-empty/", name="kosik_empty")
+     */
+    public function vyprazdniKosik(SessionInterface $session)
+    {
+        $kosik = [];
+        $session->set('kosik', $kosik);
+        return $this->redirectToRoute('kosik', [
 
+        ]);
+    }
 
 }

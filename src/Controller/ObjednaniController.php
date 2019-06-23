@@ -36,15 +36,21 @@ class ObjednaniController extends AbstractController
 
         $form = $this->createForm(ObjednaniType::class, $objednani);
         $form->handleRequest($request);
+        $objednani->setProducts($objednaneProdukty);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $objednani->setProducts($objednaneProdukty);
+
+            $objednani->setStavObjednavky("nová");
+            #  $objednani->setTotalPrice()
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($objednani);
             
             $entityManager->flush();
+
+            $kosik = [];
+            $session->set('kosik', $kosik);
 
             return $this->redirectToRoute('objednani_index');
 

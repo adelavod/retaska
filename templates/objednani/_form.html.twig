@@ -8,9 +8,6 @@
 <div class="row">
     <div class="container col-md-8" style="padding-left: 5%; padding-right: 5%">
         <h2>Vaše OBJEDNÁNÍ</h2>
-        <br>
-        {{ dump(kosik) }}
-        <br>
 
 
         <table class="table">
@@ -87,11 +84,96 @@
         {{ form_end(form) }}
 
     </div>
-    <div class="container col-md-4">
+    <div class="container col-md-4" style="padding-right: 3%">
         <h4>Vaše objednávka:</h4>
-        {% for item in kosik %}
-        {{ item.name }}, cena: {{ item.price }}, počet: {{ item.amount }}<br>
-{% endfor %}
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <td>Produkt</td>
+                <td>Cena</td>
+                <td>Množství</td>
+                <td>Subtotal</td>
+            </tr>
+            </thead>
+
+            {% for item in objednani.products %}
+                <tr style="font-size: 0.8rem">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.amount }}</td>
+                    <td><span class="total_product">{{ item.amount * item.price }}</span></td>
+
+                </tr>
+            {% endfor %}
+
+            <thead>
+            <tr>
+                <td colspan="3">Platba</td>
+                <td><span id="payment_price"></span></td>
+            </tr>
+            <tr>
+                <td colspan="3">Doprava</td>
+                <td><span id="shipping_price"></span></td>
+            </tr>
+            <tr class="table-active">
+                <td colspan="3">Celkem k platbě</td>
+                <td><span id="finalnicena"></span></td>
+            </tr>
+            </thead>
+        </table>
+
     </div>
 </div>
 {% endblock %}
+  {% block javascripts %}<script>
+let sumPrice = 0;
+$('.total_product').each(function () {
+    sumPrice += parseInt($(this).text());
+});
+let totalPriceProducts = sumPrice;
+{#
+let shipping = $('#objednani_shipping option:selected').attr('data-shipping');
+let payment = $('#objednani_payment option:selected').attr('data-payment');
+
+#}
+
+let shipping = parseInt($('#objednani_shipping option:selected').attr('data-shipping'));
+let payment = parseInt($('#objednani_payment option:selected').attr('data-payment'));
+
+let vsechno = totalPriceProducts + payment + shipping;
+
+
+$('#objednani_payment, #objednani_shipping').on('change', function(e) {
+    e.preventDefault();
+
+    let shipping = parseInt($('#objednani_shipping option:selected').attr('data-shipping'));
+    let payment = parseInt($('#objednani_payment option:selected').attr('data-payment'));
+    let vsechno = totalPriceProducts + payment + shipping;
+
+    $('#payment_price').text(payment);
+    $('#shipping_price').text(shipping);
+    $('#finalnicena').text(vsechno);
+});
+
+{#
+function updatePrice (){
+    let shipping = parseInt($('#objednani_shipping option:selected').attr('data-shipping'));
+    let payment = parseInt($('#objednani_payment option:selected').attr('data-payment'));
+
+    let totalPrice = totalPriceProducts + payment + shipping;
+
+console.log(shipping);
+    console.log(payment);
+    console.log(shipping);
+};
+
+$(document).ready(function(){
+    updatePrice();
+});
+
+#}
+
+
+
+
+</script>{% endblock %}
