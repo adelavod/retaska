@@ -3,66 +3,76 @@
 {% block title %}Objednani{% endblock %}
 
 {% block body %}
-    <h1>Objednani</h1>
+    <h1>Objednávka č. {{ objednani.id }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ objednani.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ objednani.name }}</td>
-            </tr>
-            <tr>
-                <th>Surname</th>
-                <td>{{ objednani.surname }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ objednani.email }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ objednani.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Street</th>
-                <td>{{ objednani.street }}</td>
-            </tr>
-            <tr>
-                <th>City</th>
-                <td>{{ objednani.city }}</td>
-            </tr>
-            <tr>
-                <th>Zipcode</th>
-                <td>{{ objednani.zipcode }}</td>
-            </tr>
-            <tr>
-                <th>Message</th>
-                <td>{{ objednani.message }}</td>
-            </tr>
-            <tr>
-                <th>StavObjednavky</th>
-                <td>{{ objednani.stavObjednavky }}</td>
-            </tr>
-            <tr>
-                <th>TotalPrice</th>
-                <td>{{ objednani.totalPrice }}</td>
-            </tr>
-            <tr>
-                <th>Products</th>
-                <td>{% for item in objednani.products %}
-                        {{ item.name }}, {{ item.amount }} ks<br>
-                    {% endfor %}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="container col-md-6" style="background-color: snow; padding: 20px">
 
-    <a href="{{ path('objednani_index') }}">back to list</a>
+   <h3>Objednatel:</h3>
+   {{ objednani.name }} {{ objednani.surname }}<br>
+            {{ objednani.street }}<br>
+            {{ objednani.zipcode }} {{ objednani.city }}<br>
+            <br>
+            {{ objednani.email }}<br>
+            {{ objednani.telephone }}<br>
 
-    <a href="{{ path('objednani_edit', {'id': objednani.id}) }}">edit</a>
+            {% if objednani.message is not empty %}
+            <br>Zpráva: {{ objednani.message }}
+            {% endif %}
 
-    {{ include('objednani/_delete_form.html.twig') }}
+        </div>
+
+        <div class="container col-md-6" style="background-color: snow; padding: 20px">
+            <h3>Nákup:</h3>
+            <table class="table table-sm">
+                <thead>
+                <tr>
+                    <td>Produkty</td>
+                    <td>Cena</td>
+                    <td>Množství</td>
+                    <td>Subtotal</td>
+                </tr>
+                </thead>
+
+                {% for item in objednani.products %}
+                    <tr style="font-size: 0.8rem">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.price }},- Kč</td>
+                        <td>{{ item.amount }}</td>
+                        <td><span class="total_product">{{ item.amount * item.price }}</span>,- Kč</td>
+
+                    </tr>
+                {% endfor %}
+
+                <thead>
+                <tr>
+                    <td colspan="3">{{ objednani.payment.name }}</td>
+                    <td>{{ objednani.payment.price }},- Kč</td>
+                </tr>
+                <tr>
+                    <td>Doprava</td>
+                    <td colspan="2">{{ objednani.shipping.name }}</td>
+                    <td>{{ objednani.shipping.price }},- Kč</td>
+                </tr>
+                <tr class="table-active">
+                    <td colspan="3" style="font-weight: bold">Celkem k platbě</td>
+                    <td style="font-weight: bold">
+                        {% set cenazavsechno = objednani.totalPrice + objednani.shipping.price + objednani.payment.price %}
+                        {{ cenazavsechno }},- Kč</td>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
+
+
+
+
+
+    <a href="{{ path('objednani_index') }}"> << zpátky do seznamu</a>
+<br>
+    <a href="{{ path('objednani_edit', {'id': objednani.id}) }}" class="btn btn-sm btn-secondary" style="margin-bottom: 5px">Změnit objednávku</a>
+
+        {{ include('objednani/_delete_form.html.twig') }}
 {% endblock %}

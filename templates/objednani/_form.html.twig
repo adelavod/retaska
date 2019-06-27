@@ -7,8 +7,7 @@
 {{ form_start(form) }}
 <div class="row">
     <div class="container col-md-8" style="padding-left: 5%; padding-right: 5%">
-        <h2>Vaše OBJEDNÁNÍ</h2>
-
+        <h2>Vaše objednávka</h2>
 
         <table class="table">
             <tbody>
@@ -62,13 +61,13 @@
                 <td><h5>Forma platby:</h5></td>
                 <td>{{ form_widget(form.payment) }}<br>
                     {{ form_errors(form.payment) }}
-                    Cena: <span id="cenazaplatbu">0</span>,- Kč</td>
+                    Cena: <span id="payment_price1">0</span>,- Kč</td>
             </tr>
             <tr>
                 <td><h5>Forma dopravy:</h5></td>
                 <td>{{ form_widget(form.shipping) }}<br>
                     {{ form_errors(form.shipping) }}
-                    Cena: <span id="cenazadopravu">69</span>,- Kč</td>
+                    Cena: <span id="shipping_price1">69</span>,- Kč</td>
             </tr>
             <tr>
                 <td><h5>Chcete nám sdělit ještě něco?</h5></td>
@@ -101,23 +100,24 @@
                     <td>{{ item.name }}</td>
                     <td>{{ item.price }}</td>
                     <td>{{ item.amount }}</td>
-                    <td><span class="total_product">{{ item.amount * item.price }}</span></td>
+                    <td><span class="total_product">{{ item.amount * item.price }}</span>,- Kč</td>
 
                 </tr>
             {% endfor %}
 
             <thead>
             <tr>
-                <td colspan="3">Platba</td>
-                <td><span id="payment_price"></span></td>
+                <td colspan="3"><span id="payment_nazev"></span></td>
+                <td><span id="payment_price2"></span>,- Kč</td>
             </tr>
             <tr>
-                <td colspan="3">Doprava</td>
-                <td><span id="shipping_price"></span></td>
+                <td>Doprava</td>
+                <td colspan="2"><span id="shipping_nazev"></span></td>
+                <td><span id="shipping_price2"></span>,- Kč</td>
             </tr>
             <tr class="table-active">
-                <td colspan="3">Celkem k platbě</td>
-                <td><span id="finalnicena"></span></td>
+                <td colspan="3" style="font-weight: bold">Celkem k platbě</td>
+                <td style="font-weight: bold"><span id="finalnicena"></span>,- Kč</td>
             </tr>
             </thead>
         </table>
@@ -126,23 +126,38 @@
 </div>
 {% endblock %}
   {% block javascripts %}<script>
-let sumPrice = 0;
-$('.total_product').each(function () {
-    sumPrice += parseInt($(this).text());
+
+      let sumPrice = 0;
+      $('.total_product').each(function () {
+          sumPrice += parseInt($(this).text());
+      });
+
+      let totalPriceProducts = sumPrice;
+
+    function updatePrice(){
+        let shipping = parseInt($('#objednani_shipping option:selected').attr('data-shipping'));
+        let payment = parseInt($('#objednani_payment option:selected').attr('data-payment'));
+        let vsechno = totalPriceProducts + payment + shipping;
+
+
+        $('#payment_price1').text(payment);
+        $('#shipping_price1').text(shipping);
+        $('#payment_price2').text(payment);
+        $('#shipping_price2').text(shipping);
+        $('#payment_nazev').text($('#objednani_payment option:selected').text());
+        $('#shipping_nazev').text($('#objednani_shipping option:selected').text());
+        $('#finalnicena').text(vsechno);
+    }
+
+    $(document).ready(function (){
+        updatePrice();
 });
-let totalPriceProducts = sumPrice;
+
+      $('#objednani_payment, #objednani_shipping').on('change', function(e) {
+          updatePrice()
+      });
+
 {#
-let shipping = $('#objednani_shipping option:selected').attr('data-shipping');
-let payment = $('#objednani_payment option:selected').attr('data-payment');
-
-#}
-
-let shipping = parseInt($('#objednani_shipping option:selected').attr('data-shipping'));
-let payment = parseInt($('#objednani_payment option:selected').attr('data-payment'));
-
-let vsechno = totalPriceProducts + payment + shipping;
-
-
 $('#objednani_payment, #objednani_shipping').on('change', function(e) {
     e.preventDefault();
 
@@ -150,28 +165,15 @@ $('#objednani_payment, #objednani_shipping').on('change', function(e) {
     let payment = parseInt($('#objednani_payment option:selected').attr('data-payment'));
     let vsechno = totalPriceProducts + payment + shipping;
 
-    $('#payment_price').text(payment);
-    $('#shipping_price').text(shipping);
+    $('#payment_price1').text(payment);
+    $('#shipping_price1').text(shipping);
+    $('#payment_price2').text(payment);
+    $('#shipping_price2').text(shipping);
     $('#finalnicena').text(vsechno);
 });
-
-{#
-function updatePrice (){
-    let shipping = parseInt($('#objednani_shipping option:selected').attr('data-shipping'));
-    let payment = parseInt($('#objednani_payment option:selected').attr('data-payment'));
-
-    let totalPrice = totalPriceProducts + payment + shipping;
-
-console.log(shipping);
-    console.log(payment);
-    console.log(shipping);
-};
-
-$(document).ready(function(){
-    updatePrice();
-});
-
 #}
+
+
 
 
 

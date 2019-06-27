@@ -12,9 +12,9 @@
                 <th>Příjmení</th>
                 <th>Jméno</th>
                 <th>Město</th>
-                <th>Stav objednávky</th>
-                <th>Celková cena</th>
+
                 <th>Zboží</th>
+                <th>Stav objednávky</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,14 +25,14 @@
                 <td>{{ objednani.surname }}</td>
                 <td>{{ objednani.name }}</td>
                 <td>{{ objednani.city }}</td>
-                <td>{{ objednani.stavObjednavky }}</td>
-                <td>{{ objednani.totalPrice }}</td>
+
+
 
                 <td>{% for item in objednani.products %}
                         {{ item.name }}, {{ item.amount }} ks<br>
-
-
-                {% endfor %}</td>
+                {% endfor %}
+                <p style="font-weight: bold">Zboží za {{ objednani.totalPrice }},- Kč</p> </td>
+                <td>{{ objednani.stavObjednavky }}</td>
                 <td>
                     <a href="{{ path('objednani_show', {'id': objednani.id}) }}">show</a>
                     <a href="{{ path('objednani_edit', {'id': objednani.id}) }}">edit</a>

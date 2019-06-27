@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -17,7 +16,6 @@ class KosikController extends AbstractController
     public function index(SessionInterface $session)
     {
         $kosik = $session->get('kosik', []);
-
         return $this->render('kosik/index.html.twig', [
             'kosik'=> $kosik
         ]);
@@ -29,14 +27,19 @@ class KosikController extends AbstractController
     public function add(Product $product, SessionInterface $session, Request $request)
     {
         $amount = 1;
+        $price = $product->getPrice();
+        $priceamount = $price * $amount;
 
         $kosik = $session->get('kosik', []);
+
+        // Chci dát do array košíku výpočet ceny za produkt cena * množství
 
         $kosik[$product->getId()] = [
             'id'=> $product->getId(),
             'name'=>$product->getName(),
             'price'=> $product->getPrice(),
             'amount'=>$amount,
+            'priceamount'=>$priceamount,
         ];
 
         $session->set('kosik', $kosik);
@@ -54,6 +57,11 @@ class KosikController extends AbstractController
 
         $kosik[$product->getId()] ['amount']++;
 
+        // aktualizace proměnné priceamount po každém zvýšení a snížení ks produktu v košíku
+        $amount = $kosik[$product->getId()] ['amount'];
+        $price = $product->getPrice();
+        $priceamount = $price * $amount;
+        $kosik[$product->getId()]['priceamount'] = $priceamount;
         $session->set('kosik', $kosik);
 
         return $this->redirectToRoute('kosik');
@@ -73,7 +81,15 @@ class KosikController extends AbstractController
             unset($kosik[$product->getId()]);
         } else {
             $kosik[$product->getId()] ['amount']--;
+
+            //aktualizace promenne priceamount po snizeni poctu ks v kosiku:
+            $amount = $kosik[$product->getId()] ['amount'];
+            $price = $product->getPrice();
+            $priceamount = $price * $amount;
+            $kosik[$product->getId()]['priceamount'] = $priceamount;
+
         }
+
         $session->set('kosik', $kosik);
 
         return $this->redirectToRoute('kosik');

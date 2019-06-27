@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ObjednaniRepository")
@@ -23,31 +24,38 @@ class Objednani
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *  @Assert\NotBlank()
      */
     private $surname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Email
+     * @Assert\NotBlank()
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * *  @Assert\NotBlank()
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * *  @Assert\NotBlank()
      */
     private $street;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * *  @Assert\NotBlank()
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * *  @Assert\NotBlank()
      */
     private $zipcode;
 

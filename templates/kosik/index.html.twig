@@ -9,8 +9,14 @@
     .example-wrapper code { background: white; padding: 2px 6px; }
 </style>
 
+{% if kosik is empty %}
+    <div class="jumbotron" style="margin-top: 15%">
+        <h3>Váš košík je prázdný!</h3>
+        <h4>Pojďte ho naplnit:)</h4>
+        <a href="{{ path('catalogue') }}" class="btn btn-outline-info" style="margin: 5px 20px 20px 20px">Produkty</a>
+    </div>
 
-
+    {% else %}
 <div class="container col-6" style="margin-top: 5%">
     <h1>    <img src="{{ asset('images/basket2.png') }}" width="40" height="40" alt=""> Obsah Vašeho košíku:</h1>
     <table class="table table-sm">
@@ -55,7 +61,7 @@
    </div>
 
 
-
+{% endif %}
 
 
 {% endblock %}

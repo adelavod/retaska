@@ -56,7 +56,9 @@ class CatalogueController extends AbstractController
     /**
      * @Route("/{id}/objednat", name="novaobjednavka", methods={"GET","POST"})
      */
-    public function new(Request $request, Product $product, PaymentRepository $paymentRepository, SessionInterface $session): Response
+
+    /*
+     * public function new(Request $request, Product $product, PaymentRepository $paymentRepository, SessionInterface $session): Response
     {
         $objednavka = new Objednavka();
 
@@ -64,6 +66,8 @@ class CatalogueController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+     */
+
 
        /*
         *   $products = $session->get('kosik');
@@ -77,10 +81,8 @@ class CatalogueController extends AbstractController
 
                 $order->addProduct($product);
             }
-        */
 
-
-            $objednavka->setProduct($product);
+       $objednavka->setProduct($product);
 
             $objednavka->setTotalprice($product->getPrice() + $objednavka->getPayment()->getPrice());
             $entityManager = $this->getDoctrine()->getManager();
@@ -97,6 +99,11 @@ class CatalogueController extends AbstractController
             'products' => $session -> get('kosik', [])
         ]);
     }
+
+        */
+
+
+
 
 
 }

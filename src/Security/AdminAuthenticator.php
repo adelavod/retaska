@@ -82,7 +82,7 @@ class AdminAuthenticator extends AbstractFormLoginAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
-            return new RedirectResponse($this->urlGenerator->generate('product_index'));
+            return new RedirectResponse($targetPath);
         }
 
         return new RedirectResponse($this->urlGenerator->generate('product_index'));

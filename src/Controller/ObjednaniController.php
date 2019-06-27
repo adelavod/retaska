@@ -29,6 +29,7 @@ class ObjednaniController extends AbstractController
     /**
      * @Route("/objednani/new", name="objednani_new", methods={"GET","POST"})
      */
+
     public function new(Request $request, SessionInterface $session, ProductRepository $productRepository): Response
     {
         $objednani = new Objednani();
@@ -38,28 +39,32 @@ class ObjednaniController extends AbstractController
         $form->handleRequest($request);
         $objednani->setProducts($objednaneProdukty);
 
+
+        $totalprice = array_sum(array_column($objednaneProdukty, 'priceamount'));
+        $objednani->setTotalPrice($totalprice);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
-
             $objednani->setStavObjednavky("nová");
-            #  $objednani->setTotalPrice()
+
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($objednani);
             
             $entityManager->flush();
 
+            // vyprázdnění košíku po odeslání objednávky:
             $kosik = [];
             $session->set('kosik', $kosik);
 
-            return $this->redirectToRoute('objednani_index');
+            return $this->redirectToRoute('thankyou');
 
         }
 
         return $this->render('objednani/new.html.twig', [
             'objednani' => $objednani,
             'form' => $form->createView(),
-            'kosik' => $objednaneProdukty,
+            'totalprice'=> $totalprice,
         ]);
     }
 
